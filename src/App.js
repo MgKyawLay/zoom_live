@@ -1,4 +1,4 @@
-import logo from "./logo.svg";
+
 import "./App.css";
 import uitoolkit from "@zoom/videosdk-ui-toolkit";
 import "@zoom/videosdk-ui-toolkit/dist/videosdk-ui-toolkit.css";
@@ -6,10 +6,10 @@ import "@zoom/videosdk-ui-toolkit/dist/videosdk-ui-toolkit.css";
 function App() {
   const handleJoin = () => {
     const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBfa2V5IjoiVnEzYjdsUmhSdDdsTklLYjF3NlB6R0hqRU1odm9hMFAzVWFxIiwicm9sZV90eXBlIjoxLCJ0cGMiOiJzZXNzaW9uIDEiLCJ2ZXJzaW9uIjoxLCJpYXQiOjE3MjIyNzEyMDUsImV4cCI6MTcyMjI3NDgwNX0.8f6UcJWv8sEShoLZbsn4iMV2bzxRONnpRTAH0xgJwX0";
+      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhcHBfa2V5IjoiVnEzYjdsUmhSdDdsTklLYjF3NlB6R0hqRU1odm9hMFAzVWFxIiwidHBjIjoiand0IHRlc3QiLCJyb2xlX3R5cGUiOjEsInNlc3Npb25fa2V5Ijoiand0IHRlc3Q1MjA0IiwidXNlcl9pZGVudGl0eSI6IkRhdyBUaW4gTmlsYXIgVHVuIiwidmVyc2lvbiI6MSwiaWF0IjoxNzI3MTUxNzEzLCJleHAiOjE3MjcxNTg5MTN9.jlQ1H3XIvfYsEprPpVtwAwbfp1E6FCu5uVdHxPtcbRE";
     var config = {
       videoSDKJWT: token,
-      sessionName: "session 1",
+      sessionName: "jwt test",
       userName: "UserA",
       sessionPasscode: "abc123",
       features: ["video", "audio", "share", "chat", "users", "settings"],
