@@ -1,46 +1,17 @@
-import React, { useState } from "react"; // Import useState
-import "./App.css";
-import uitoolkit from "@zoom/videosdk-ui-toolkit";
-import "@zoom/videosdk-ui-toolkit/dist/videosdk-ui-toolkit.css";
+import React from 'react'
+import HostPanel from './components/HostPanel'
 
-function App() {
-  const [token, setToken] = useState("");
-  const [sessionName, setSessionName] = useState("");
-
-
-  const handleJoin = () => {  
-    var config = {
-      videoSDKJWT: token,
-      sessionName: sessionName, 
-      userName: "Instructor",
-      sessionPasscode: "abc123",
-      features: ["video", "audio", "share", "chat", "users", "settings", "preview"],
-      options: { init: {}, audio: {}, video: {}, share: {}},
-    };
-    const sessionContainer = document.getElementById("sessionContainer");
-    uitoolkit.joinSession(sessionContainer, config);
-  };
+const App = () => {
 
   return (
-    <div className="App">
-      <div id="sessionContainer"></div>
-      <div className="inputContainer">
-        <input
-          type="text"
-          value={token}
-          onChange={(e) => setToken(e.target.value)} // Update state on token input change
-          placeholder="Enter JWT token"
-        />
-        <input
-          type="text"
-          value={sessionName}
-          onChange={(e) => setSessionName(e.target.value)} // Update state on session name input change
-          placeholder="Enter session name"
-        />
-        <button onClick={handleJoin}>Join</button>
-      </div>
+    <div>
+        <HostPanel
+         sessionName={'Testing Episode 1'}
+         token={'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhcHBfa2V5IjoiVnEzYjdsUmhSdDdsTklLYjF3NlB6R0hqRU1odm9hMFAzVWFxIiwidHBjIjoiVGVzdGluZyBFcGlzb2RlIDEiLCJyb2xlX3R5cGUiOjEsInNlc3Npb25fa2V5IjoiVGVzdGluZyBFcGlzb2RlIDE1NzY5IiwidXNlcl9pZGVudGl0eSI6IkRvdWJsZSBUIiwidmVyc2lvbiI6MSwiaWF0IjoxNzI4NjM5MTA4LCJleHAiOjE3Mjg2NDYzMDh9.Kg9hy7DJ4v7cwtRRvmwV8rrj6MRkoi1pYkQIK4jKdGc'}
+         password={'123abc'}
+         />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
