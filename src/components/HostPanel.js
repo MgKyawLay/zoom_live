@@ -1,41 +1,61 @@
-import React, { useEffect } from 'react'
-import ZoomVideo from '@zoom/videosdk'
+import React from "react";
+import ZoomVideo from "@zoom/videosdk";
+import appColors from "./appcolor";
 
-const client = ZoomVideo.createClient(); 
-client.init('en-US');
+let client = ZoomVideo.createClient();
+let videoDevices;
+let localVideoTrack;
 
-const HostPanel = ({sessionName, token, userName, password}) => {
-    const [isConnected, setIsConnected] = useState(false);
-    const [participants, setParticipants] = useState([]);
+client.init("en-US", "Global", { patchJsMedia: true }).then(() => {
+  ZoomVideo.getDevices().then((devices) => {
+    videoDevices = devices.filter((device) => {
+      return device.kind === "videoinput";
+    });
 
-    useEffect(() => {
-      joinSession = async () => {
-        try {
-            await client.join(sessionName, token, userName, password)
-            setIsConnected(true);
-            client.on('user-added', (user) => {
-                setParticipants((prev) => [...prev, user])
-            })
+    localVideoTrack = ZoomVideo.createLocalVideoTrack(videoDevices[0].deviceId);
+    localVideoTrack.start(document.querySelector("#preview-camera-video"));
+  });
 
-            client.on('user-removed', (user) => {
-                setParticipants((prev) => prev.filter((participants) => participants.userId !== user.userId))
-            });
-        } catch (error) {
-            console.error("Couldn't join session", error)
-        }
-      };
+  // turn on camera preview
+});
 
-      joinSession();
-    
-      return () => {
-        client.leave();
-        setIsConnected(false);
-      }
-    }, [sessionName, token, userName, password])
-    
-    return (
-        <div>HostPanel</div>
-    )
-}
+const HostPanel = () => {
+  return (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
+      }}
+    >
+      <div
+        style={{
+          height: "50%",
+          width: "50%",
+          backgroundColor: appColors.grey200,
+        }}
+      >
+        <h1 style={{ position: "absolute", color: "white" }}>Preview</h1>
+        <video
+          id="preview-camera-video"
+          style={{ height: "100%", width: "100%" }}
+        ></video>
+      </div>
+      <button
+        style={{
+          backgroundColor: appColors.primary500,
+          color: "white",
+          border: "none",
+          padding: "10px 20px",
+          marginTop: "20px",
+          cursor: "pointer",
+        }}
+      >
+        Join Now
+      </button>
+    </div>
+  );
+};
 
-export default HostPanel
+export default HostPanel;
