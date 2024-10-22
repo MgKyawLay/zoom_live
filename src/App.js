@@ -14,7 +14,7 @@ function App() {
       sessionName: sessionName, 
       userName: "Instructor",
       sessionPasscode: "abc123",
-      features: ["video", "audio", "share", "chat", "users", "settings", "preview"],
+      features: ["video", "audio", "share", "chat", "users", "settings"],
       options: { init: {}, audio: {}, video: {}, share: {}},
     };
     const sessionContainer = document.getElementById("sessionContainer");
@@ -38,6 +38,7 @@ function App() {
           placeholder="Enter session name"
         />
         <button onClick={handleJoin}>Join</button>
+        
       </div>
     </div>
   );
