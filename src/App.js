@@ -1,4 +1,4 @@
-import React, { useState } from "react"; // Import useState
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import uitoolkit from "@zoom/videosdk-ui-toolkit";
 import "@zoom/videosdk-ui-toolkit/dist/videosdk-ui-toolkit.css";
@@ -6,38 +6,42 @@ import "@zoom/videosdk-ui-toolkit/dist/videosdk-ui-toolkit.css";
 function App() {
   const [token, setToken] = useState("");
   const [sessionName, setSessionName] = useState("");
+  const [hideBtn, setHideBtn] = useState(false);
+  const width = window.innerWidth;
+  const height = window.innerHeight;
 
+  useEffect(() => {
+    // Parse URL parameters
+    const params = new URLSearchParams(window.location.search);
+    const tokenParam = params.get("token");
+    const sessionNameParam = params.get("session_name");
 
-  const handleJoin = () => {  
-    var config = {
+    if (tokenParam) setToken(tokenParam);
+    if (sessionNameParam) setSessionName(sessionNameParam);
+  }, []);
+
+  const handleJoin = () => {
+    const config = {
       videoSDKJWT: token,
-      sessionName: sessionName, 
+      sessionName: sessionName,
       userName: "Instructor",
       sessionPasscode: "abc123",
       features: ["video", "audio", "share", "chat", "users", "settings"],
-      options: { init: {}, audio: {}, video: {}, share: {}},
+      options: { init: {}, audio: {}, video: {}, share: {} },
     };
+
     const sessionContainer = document.getElementById("sessionContainer");
     uitoolkit.joinSession(sessionContainer, config);
+    setHideBtn(true)
   };
 
   return (
-    <div className="App">
+    <div className="App" style={{ height: '100vh', width: '100vw',}}>
       <div id="sessionContainer"></div>
       <div className="inputContainer">
-        <input
-          type="text"
-          value={token}
-          onChange={(e) => setToken(e.target.value)} // Update state on token input change
-          placeholder="Enter JWT token"
-        />
-        <input
-          type="text"
-          value={sessionName}
-          onChange={(e) => setSessionName(e.target.value)} // Update state on session name input change
-          placeholder="Enter session name"
-        />
-        <button onClick={handleJoin}>Join</button>
+        {
+          !hideBtn && <button onClick={handleJoin} style={{padding: 10, borderRadius: 100, backgroundColor:'blue', color:'white'}}>Start Live Session</button>
+        }
         
       </div>
     </div>

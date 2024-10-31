@@ -613,7 +613,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-proposal-private-property-in-object@npm:^7.16.0":
+"@babel/plugin-proposal-private-property-in-object@npm:7.21.11, @babel/plugin-proposal-private-property-in-object@npm:^7.16.0":
   version: 7.21.11
   resolution: "@babel/plugin-proposal-private-property-in-object@npm:7.21.11"
   dependencies:
@@ -3577,7 +3577,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@zoom/videosdk@npm:^1.12.5":
+"@zoom/videosdk@npm:^1.12.1":
   version: 1.12.5
   resolution: "@zoom/videosdk@npm:1.12.5"
   checksum: 5a98ce8e4520d45ceae99f2b4d286ecbe12b7d6797d1acccfb05f9fcea5e7648faa7f62706260258a9f27bd2257a97789674917c206d242e5eed9c63b4801e37
@@ -13939,10 +13939,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "zoom_live@workspace:."
   dependencies:
+    "@babel/plugin-proposal-private-property-in-object": 7.21.11
     "@testing-library/jest-dom": ^5.17.0
     "@testing-library/react": ^13.4.0
     "@testing-library/user-event": ^13.5.0
-    "@zoom/videosdk": ^1.12.5
+    "@zoom/videosdk": ^1.12.1
     "@zoom/videosdk-ui-toolkit": ^1.12.1-1
     react: ^18.3.1
     react-dom: ^18.3.1
