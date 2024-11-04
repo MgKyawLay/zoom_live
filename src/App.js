@@ -36,7 +36,7 @@ function App() {
   };
 
   return (
-    <div className="App" style={{ height: '100vh', width: '100vw',}}>
+    <div className="App">
       <div id="sessionContainer"></div>
       <div className="inputContainer">
         {
