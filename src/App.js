@@ -4,47 +4,56 @@ import uitoolkit from "@zoom/videosdk-ui-toolkit";
 import "@zoom/videosdk-ui-toolkit/dist/videosdk-ui-toolkit.css";
 
 function App() {
-  const [token, setToken] = useState("");
-  const [sessionName, setSessionName] = useState("");
-  const [hideBtn, setHideBtn] = useState(false);
-  const width = window.innerWidth;
-  const height = window.innerHeight;
-
   useEffect(() => {
-    // Parse URL parameters
-    const params = new URLSearchParams(window.location.search);
-    const tokenParam = params.get("token");
-    const sessionNameParam = params.get("session_name");
-
-    if (tokenParam) setToken(tokenParam);
-    if (sessionNameParam) setSessionName(sessionNameParam);
+    joinSession();
   }, []);
+  var sessionContainer;
+  var chatContainer;
+  var videoContainer;
+  var controlsContainer;
 
-  const handleJoin = () => {
-    const config = {
-      videoSDKJWT: token,
-      sessionName: sessionName,
-      userName: "Instructor",
-      sessionPasscode: "abc123",
-      features: ["video", "audio", "share", "chat", "users", "settings"],
-      options: { init: {}, audio: {}, video: {}, share: {} },
-    };
-
-    const sessionContainer = document.getElementById("sessionContainer");
-    uitoolkit.joinSession(sessionContainer, config);
-    setHideBtn(true)
+  var config = {
+    videoSDKJWT:
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBfa2V5IjoiVnEzYjdsUmhSdDdsTklLYjF3NlB6R0hqRU1odm9hMFAzVWFxIiwicm9sZV90eXBlIjoxLCJ0cGMiOiJ0ZXN0MSIsInZlcnNpb24iOjEsImlhdCI6MTczMDg4MDE5NywiZXhwIjoxNzMwODgzNzk3fQ.o-taB9gn7zBWeR5ZrNbznquqxx0MteEyUfP_MhmaLs8",
+    sessionName: "test1",
+    userName: "user1",
+    sessionPasscode: "abc123",
+    features: ["video", "audio", "settings", "users", "chat", "share"],
   };
 
+  function joinSession() {
+    sessionContainer = document.getElementById("sessionContainer");
+    chatContainer = document.getElementById("chatContainer");
+    videoContainer = document.getElementById("videoContainer");
+    controlsContainer = document.getElementById("controlsContainer");
+
+    uitoolkit.showUitoolkitComponents(sessionContainer, config);
+    uitoolkit.showChatComponent(chatContainer);
+    // uitoolkit.showVideoComponent(videoContainer);
+    uitoolkit.showControlsComponent(controlsContainer);
+
+    uitoolkit.onSessionClosed(sessionClosed);
+    function sessionClosed() {
+      uitoolkit.hideControlsComponent(controlsContainer);
+      // uitoolkit.hideVideoComponent(videoContainer);
+      uitoolkit.hideChatComponent(chatContainer);
+      uitoolkit.hideUitoolkitComponents(sessionContainer);
+    }
+  }
+
   return (
-    <div className="App">
-      <div id="sessionContainer"></div>
-      <div className="inputContainer">
-        {
-          !hideBtn && <button onClick={handleJoin} style={{padding: 10, borderRadius: 100, backgroundColor:'blue', color:'white'}}>Start Live Session</button>
-        }
-        
+      <div
+        id="sessionContainer"
+        // className="App"
+      >
+        <div className="left">
+          <div id="chatContainer"></div>
+        </div>
+        <div className="right">
+          <div id="videoContainer"></div>
+          <div id="controlsContainer"></div>
+        </div>
       </div>
-    </div>
   );
 }
 
